@@ -1,12 +1,29 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block title %}Login{% endblock %}
 
+{% block css %}
+<link href="{% static 'bootstrap/css/login.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
-<h2>Login</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
+<form method="post" class="form-login">
+{% csrf_token %}
+	<h2>Login</h2>
+
+{% for field in form %}
+	{{ field.label_tag }}<br>
+	{{ field }}<br>
+	{% for error in field.errors %}
+	<p style="color: red">{{ error }}</p>
+	{% endfor %}
+{% endfor %}
+
+	<label>
+		<input type="checkbox" value="remember-me"> Remember me
+	</label>
+
+	<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 </form>
 {% endblock %}
