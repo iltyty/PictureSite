@@ -9,21 +9,22 @@
 
 {% block content %}
 <form method="post" class="form-signup">
-{% csrf_token %}
+	{% csrf_token %}
 	<h2>Sign up</h2>
 
-{% for field in form %}
+	{% for field in form %}
 	{{ field.label_tag }}<br>
 	{{ field }}<br>
 	{% for error in field.errors %}
 	<p style="color: red">{{ error }}</p>
 	{% endfor %}
-{% endfor %}
+	{% endfor %}
 
+	<br>
 	<label>
 		<input type="checkbox" value="remember-me"> Remember me
 	</label>
 
-	<button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+	<button class="btn btn-lg btn-primary btn-block" id="signup" type="submit">Sign up</button>
 </form>
 {% endblock %}

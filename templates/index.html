@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block header %}
+<!-- Header -->
+<header class="masthead">
+	<div class="container d-flex h-100 align-items-center">
+		<div class="mx-auto text-center">
+			<h1 class="mx-auto my-0 text-uppercase">Picture Site</h1>
+			<h2 class="text-white-50 mx-auto mt-2 mb-5">
+				A self-designed image processing website based on deep learning.
+			</h2>
+			<a href="#about" class="btn btn-primary js-scroll-trigger">Upload image</a>
+		</div>
+	</div>
+</header>
+{% endblock %}
+
+
+<!-- About Section -->
+{% block navigation %}
+<section id="about" class="about-section text-center">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 mx-auto">
+				<h2 class="text-white mb-4">Based on deep learning</h2>
+				<p class="text-white-50">
+					Picture site is an image processing website based on deep
+					learning.
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
