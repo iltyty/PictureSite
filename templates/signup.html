@@ -4,13 +4,15 @@
 {% block title %}Sign Up{% endblock %}
 
 {% block css %}
+
 <link href="{% static 'bootstrap/css/signup.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
 <form method="post" class="form-signup">
+
 	{% csrf_token %}
-	<h2>Sign up</h2>
+	<h1>Sign up</h1>
 
 	{% for field in form %}
 	{{ field.label_tag }}<br>
