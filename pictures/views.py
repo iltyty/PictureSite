@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import CreateView, ListView, DetailView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -35,3 +35,9 @@ class EditImageView(LoginRequiredMixin, DetailView):
     model = Post
     template_name = "detail.html"
     context_object_name = "obj"
+
+
+class DeleteImageView(LoginRequiredMixin, DeleteView):
+    model = Post
+    template_name = "delete.html"
+    success_url = reverse_lazy("upload_history")

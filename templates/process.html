@@ -24,6 +24,7 @@
     {% for post in object_list %}
     <div class="card">
         <p>{{ post.created }}</p>
+        <a href="{% url 'delete_image' pk=post.pk %}" class="btn btn-primary">delete</a>
         <a href="{% url 'detail' pk=post.pk %}">
             <img class="card-img-top probootstrap-animate" src="{{ post.cover.url }}" alt="{{ post.title }}"
                 data-animate-effect="fadeIn">
