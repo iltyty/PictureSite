@@ -1,0 +1,49 @@
+{% extends 'process_base.html' %}
+{% load staticfiles %}
+
+{% block nav %}
+<nav class="probootstrap-nav">
+    <ul>
+        <li class="probootstrap-animate active" data-animate-effect="fadeInLeft">
+            <a href="index.html">Detail</a>
+        </li>
+        <li class="probootstrap-animate" data-animate-effect="fadeInLeft">
+            <a href="">Detection</a>
+        </li>
+        <li class="probootstrap-animate" data-animate-effect="fadeInLeft">
+            <a href="">Segmentation</a>
+        </li>
+        <li class="probootstrap-animate" data-animate-effect="fadeInLeft">
+            <a href="">Translation</a>
+        </li>
+        <li class="probootstrap-animate" data-animate-effect="fadeInLeft">
+            <a href="{% url 'upload_history' %}">Back</a>
+        </li>
+        <li class="probootstrap-animate" data-animate-effect="fadeInLeft">
+            <a href="{% url 'logout' %}">Log out</a>
+        </li>
+    </ul>
+</nav>
+{% endblock %}
+
+
+{% block card %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-xl-8 col-lg-12">
+            <div class="row">
+                <div class="col-xl-8 col-lg-12 mx-auto">
+                    <h1 class="mb-5" align="center">{{ obj.title }}</h1>
+                </div>
+            </div>
+
+            <p class="mb-5"></p><img src="{{ obj.cover.url }}" alt="{{ obj.title }}" class="img-fluid mx-auto d-block">
+            </p>
+
+
+        </div>
+    </div>
+    <!-- END row -->
+
+</div>
+{% endblock %}

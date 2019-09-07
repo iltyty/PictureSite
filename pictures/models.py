@@ -1,21 +1,26 @@
 from django.db import models
-from django.utils import timezone
 from django.contrib.auth.models import User
+from django.core.files.base import ContentFile
+import os
+import requests
 
 
 class Post(models.Model):
+    url = models.URLField(max_length=200, default="")
     title = models.CharField(max_length=200)
-    cover = models.ImageField(upload_to="images/")
+    cover = models.ImageField(upload_to="images/", default=None)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
 
-    # def save(self, *args, **kwargs):
-    #     if not self.created:
-    #         self.created = timezone.now()
-
-    #     self.updated = timezone.now()
-    #     return super(Post, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        if self.url and not self.cover:
+            response = requests.get(self.url)
+            if response.status_code == 200:
+                self.cover.save(
+                    os.path.basename(self.url), ContentFile(response.content), save=True
+                )
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
