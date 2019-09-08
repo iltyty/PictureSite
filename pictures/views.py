@@ -104,7 +104,9 @@ class DeleteImagesView(LoginRequiredMixin, ListView):
     def post(self, request, *args, **kwargs):
         print("post")
         try:
-            ids = self.request.POST["ids"].split(",")
+            ids = self.request.POST.get("ids", "")
+            if not ids:
+                ids = ids.split(",")
             ids = [int(id) for id in ids]
             Post.objects.filter(pk__in=ids).delete()
             return JsonResponse({"result": True})
