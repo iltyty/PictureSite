@@ -5,7 +5,7 @@
 <nav class="probootstrap-nav">
     <ul>
         <li class="probootstrap-animate active" data-animate-effect="fadeInLeft">
-            <a href="index.html">Detail</a>
+            <a href="">Detail</a>
         </li>
         <li class="probootstrap-animate" data-animate-effect="fadeInLeft">
             <a href="">Detection</a>
@@ -17,7 +17,11 @@
             <a href="">Translation</a>
         </li>
         <li class="probootstrap-animate" data-animate-effect="fadeInLeft">
-            <a href="{% url 'upload_history' %}">Back</a>
+            {% if user.is_superuser %}
+            <a href="{% url 'upload_history_admin' adminname=user.username %}">Back</a>
+            {% else %}
+            <a href="{% url 'upload_history_user' username=user.username %}">Back</a>
+            {% endif %}
         </li>
         <li class="probootstrap-animate" data-animate-effect="fadeInLeft">
             <a href="{% url 'logout' %}">Log out</a>

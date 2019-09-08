@@ -283,7 +283,7 @@ h5,
 }
 .probootstrap-main .card-columns .card a {
   position: relative;
-  float: right;
+  display: block;
 }
 .probootstrap-main .card-columns .card p {
   position: relative;
@@ -710,6 +710,14 @@ textarea {
 
 .close-span {
   cursor: pointer;
+}
+
+.page-container {
+  position: fixed;
+  left: 250px;
+  height: 30px;
+  width: calc(100% - 250px);
+  bottom: 20px;
 }
 
 @-webkit-keyframes loader-rotate {

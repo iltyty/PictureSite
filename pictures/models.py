@@ -17,7 +17,7 @@ class Post(models.Model):
         if self.url and not self.cover:
             response = requests.get(self.url)
             if response.status_code == 200:
-                self.cover.save( os.path.basename(self.url), ContentFile(response.content), save=True)
+                self.cover.save(os.path.basename(self.url), ContentFile(response.content), save=True)
             else:
                 pass
         super().save(*args, **kwargs)

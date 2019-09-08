@@ -10,13 +10,25 @@
 			<h2 class="text-white-50 mx-auto mt-2 mb-5">
 				A self-designed image processing website based on deep learning.
 			</h2>
-			<a href="{% url 'upload_history' %}" class="btn btn-primary js-scroll-trigger">Get started</a>
+			{% if user.is_authenticated %}
+			{% if user.is_superuser %}
+			<a href="{% url 'upload_history_admin' adminname=user.username %}"
+				class="btn btn-primary js-scroll-trigger">
+				Get started
+			</a>
+			{% else %}
+			<a href="{% url 'upload_history_user' username=user.username %}" class="btn btn-primary js-scroll-trigger">
+				Get started
+			</a>
+			{% endif %}
+			{% else %}
+			<a href="{% url 'login' %}" class="btn btn-primary js-scroll-trigger">
+				Get started
+			</a>
+			{% endif %}
 		</div>
 	</div>
-</header>
-{% endblock %}
-
-
+</header> {% endblock %}
 <!-- About Section -->
 {% block navigation %}
 <section id="about" class="about-section text-center">
