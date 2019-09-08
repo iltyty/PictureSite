@@ -409,6 +409,7 @@ h5,
   background: #1fad9f;
   border-color: #1fad9f;
   color: #fff;
+  float: right;
 }
 .btn.btn-primary:hover,
 .btn.btn-primary:focus,
@@ -705,6 +706,10 @@ textarea {
   -webkit-animation: loader-dash 1.5s ease-in-out infinite;
   animation: loader-dash 1.5s ease-in-out infinite;
   stroke-linecap: round;
+}
+
+.close-span {
+  cursor: pointer;
 }
 
 @-webkit-keyframes loader-rotate {

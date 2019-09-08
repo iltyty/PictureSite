@@ -3,6 +3,7 @@ from django.views.generic import CreateView, ListView, DetailView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 from .forms import UploadForm
 from .models import Post
 
@@ -41,3 +42,11 @@ class DeleteImageView(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = "delete.html"
     success_url = reverse_lazy("upload_history")
+
+    def post(self, request, *args, **kwargs):
+        try:
+            pk = self.request.POST["pk"]
+            Post.objects.filter(pk=pk).delete()
+            return JsonResponse({"result": True})
+        except Exception as e:
+            return super().post(request, *args, **kwargs)
