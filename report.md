@@ -40,11 +40,10 @@
   ```bash
   python manage.py makemigrations
   python manage.py runserver
-python manage.py migrate
+  python manage.py migrate
   ```
 
   然后打开浏览器终端，访问 https://127.0.0.1:8000 即可自动跳转至项目主页
-  
   
 
 ## 三、网页界面
