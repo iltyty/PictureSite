@@ -62,6 +62,10 @@
         </a>
         {% endif %}
     </div>
+    {% empty %}
+    <h1 class="mb-3">
+        There're no upload images currently!
+    </h1>
     {% endfor %}
 
     {% for post in object_list %}
@@ -122,7 +126,7 @@
                                 return
                             }
 
-                            $.post("{% url 'delete_images' %}", { ids: ids, csrfmiddlewaretoken: token }, function (res) {
+                            $.post(".", { ids: ids, csrfmiddlewaretoken: token }, function (res) {
                                 if (!res.result) {
                                     alert(res.message)
                                 }
@@ -139,10 +143,12 @@
     </div>
     {% endfor %}
 </div>
+{% if object_list %}
 <form method="get">
     Title: <input type="text" name="title">
     Start day: <input type="datetime-local" name="startday">
     End day: <input type="datetime-local" name="endday">
     <button class="btn btn-primary" type="submit">search</button><br>
 </form>
+{% endif %}
 {% endblock %}

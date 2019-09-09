@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
+{% block title %}
+Picture Site
+{% endblock %}
+
 {% block header %}
 <!-- Header -->
 <header class="masthead">
@@ -28,7 +32,8 @@
 			{% endif %}
 		</div>
 	</div>
-</header> {% endblock %}
+</header>
+{% endblock %}
 <!-- About Section -->
 {% block navigation %}
 <section id="about" class="about-section text-center">

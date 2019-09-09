@@ -10,7 +10,6 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     cover = models.ImageField(upload_to="images/", default=None, blank=True)
     created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
 
     def save(self, *args, **kwargs):
@@ -24,3 +23,9 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Operation(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    type = models.CharField(max_length=200)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, default=None)

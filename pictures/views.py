@@ -6,7 +6,10 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, DeleteView
 
 from .forms import UploadForm
-from .models import Post
+from .models import Post, Operation
+from process.face_recognition import recognize
+from process.img_seg import segmentation
+from process.classification import classify
 
 
 def index(request):
@@ -15,7 +18,7 @@ def index(request):
 
 class UserUploadHistoryView(LoginRequiredMixin, ListView):
     model = Post
-    paginate_by = 9
+    paginate_by = 6
     template_name = "process_user.html"
 
     def get_queryset(self):
@@ -34,16 +37,38 @@ class UserUploadHistoryView(LoginRequiredMixin, ListView):
 
         return queryset.filter(user=self.request.user)
 
+    def post(self, request, *args, **kwargs):
+        try:
+            ids = self.request.POST.get("ids", "")
+            if ids:
+                ids = ids.split(",")
+            ids = [int(id) for id in ids]
+            Post.objects.filter(pk__in=ids).delete()
+            return JsonResponse({"result": True})
+        except Exception as e:
+            return JsonResponse({"result": False, "message": str(e)})
+
 
 class AdminUploadHistoryView(LoginRequiredMixin, ListView):
     model = Post
-    paginate_by = 9
+    paginate_by = 6
     template_name = "process_admin.html"
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         data["user_list"] = User.objects.filter(is_superuser=False)
         return data
+
+    def post(self, request, *args, **kwargs):
+        try:
+            ids = self.request.POST.get("ids", "")
+            if ids:
+                ids = ids.split(",")
+            ids = [int(id) for id in ids]
+            Post.objects.filter(pk__in=ids).delete()
+            return JsonResponse({"result": True})
+        except Exception as e:
+            return JsonResponse({"result": False, "message": str(e)})
 
 
 class UserSpecifiedHistoryView(LoginRequiredMixin, ListView):
@@ -76,36 +101,83 @@ class UploadImageView(LoginRequiredMixin, CreateView):
         )
 
 
-class EditImageView(LoginRequiredMixin, DetailView):
+class ImageOperationView(LoginRequiredMixin, DetailView):
     model = Post
     template_name = "detail.html"
     context_object_name = "obj"
+
+    def post(self, request, *args, **kwargs):
+        operation = self.request.POST.get("operation", "")
+        ids = self.request.POST.get("ids", "")
+        input_path = "." + self.get_object().cover.url
+
+        if operation == "recognition":
+            path = recognize(input_path)
+            opt = Operation.objects.create(
+                type="face recognition", post=self.get_object()
+            )
+            opt.save()
+            if path:
+                return JsonResponse({"result": True, "path": path})
+            else:
+                return JsonResponse({"result": False})
+        elif operation == "segmentation":
+            path = segmentation(input_path)
+            opt = Operation.objects.create(
+                type="image segmentation", post=self.get_object()
+            )
+            opt.save()
+            return JsonResponse({"result": True, "path": path})
+        elif operation == "classification":
+            guess = classify(input_path)
+            opt = Operation.objects.create(
+                type="image classification", post=self.get_object()
+            )
+            opt.save()
+            return JsonResponse({"result": True, "guess": guess})
+
+        if ids:
+            ids = ids.split(",")
+            ids = [int(id) for id in ids]
+            Operation.objects.filter(pk__in=ids).delete()
+            return JsonResponse({"result": True})
 
 
 class DeleteImageView(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = "delete.html"
-    success_url = reverse_lazy("upload_history")
 
     def post(self, request, *args, **kwargs):
         try:
             pk = self.request.POST["pk"]
-            Post.objects.filter(pk=pk).delete()
+            Post.objects.get(pk=pk).delete()
             return JsonResponse({"result": True})
         except Exception as e:
-            return super().post(request, *args, **kwargs)
+            return JsonResponse({"result": False})
 
 
-class DeleteImagesView(LoginRequiredMixin, ListView):
+class DeleteOptView(LoginRequiredMixin, DeleteView):
+    model = Operation
+    template_name = "delete.html"
+
+    def post(self, request, *args, **kwargs):
+        try:
+            pk = self.request.POST.get("pk", "")
+            Operation.objects.get(pk=pk).delete()
+            return JsonResponse({"result": True})
+        except Exception as e:
+            return JsonResponse({"result": False})
+
+
+class DeleteImagesView(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = "delete.html"
     success_url = reverse_lazy("upload_history")
 
     def post(self, request, *args, **kwargs):
-        print("post")
         try:
             ids = self.request.POST.get("ids", "")
-            if not ids:
+            if ids:
                 ids = ids.split(",")
             ids = [int(id) for id in ids]
             Post.objects.filter(pk__in=ids).delete()

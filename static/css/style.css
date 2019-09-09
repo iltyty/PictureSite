@@ -714,6 +714,7 @@ textarea {
 
 .page-container {
   position: fixed;
+  margin-top: 30px;
   left: 250px;
   height: 30px;
   width: calc(100% - 250px);

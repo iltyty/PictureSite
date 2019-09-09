@@ -5,9 +5,10 @@ from .views import (
     UserUploadHistoryView,
     AdminUploadHistoryView,
     UserSpecifiedHistoryView,
-    EditImageView,
+    ImageOperationView,
     DeleteImageView,
     DeleteImagesView,
+    DeleteOptView,
 )
 
 
@@ -29,7 +30,10 @@ urlpatterns = [
         UserSpecifiedHistoryView.as_view(),
         name="upload_history_specified",
     ),
-    path("process/detail/<pk>/", EditImageView.as_view(), name="detail"),
-    path("process/delete/<pk>/", DeleteImageView.as_view(), name="delete_image"),
-    path("process/deletes/", DeleteImagesView.as_view(), name="delete_images"),
+    path("process/detail/<pk>/", ImageOperationView.as_view(), name="detail"),
+    path("process/delete/image/<pk>/", DeleteImageView.as_view(), name="delete_image"),
+    path("process/delete/images/", DeleteImagesView.as_view(), name="delete_images"),
+    path(
+        "process/delete/operation/<pk>", DeleteOptView.as_view(), name="delete_opt"
+    ),
 ]
