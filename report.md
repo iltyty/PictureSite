@@ -1,7 +1,3 @@
----
-typora-copy-images-to: ./
----
-
 # report
 
 > ##### 邱圆辉 	2017013591 https://github.com/Chinwer/PictureSite
