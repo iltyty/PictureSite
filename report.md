@@ -51,7 +51,7 @@ python manage.py migrate
 
 - ### 项目主页
 
-  ![home](./home.png)
+  ![home](home.png)
 
   - 左上角为项目名称：Picture Site。点击可跳转至主页。
   - 中心部分文字为项目logo及简介：基于深度学习的图片处理网页。
@@ -61,7 +61,7 @@ python manage.py migrate
 
 - ### 登录页面
 
-  ![login](./login.png)
+  ![login](login.png)
 
   - 中心部分从上至下两个输入框分别为用户名、密码输入框。
   - 中心部分按钮为登录按钮，若用户名、密码正确，点击即可跳转至用户历史图片展示页面。
@@ -69,7 +69,7 @@ python manage.py migrate
 
 - ### 注册页面
 
-  ![register](./register.png)
+  ![register](register.png)
 
   - 中心部分从上至下三个输入框分别为用户名、密码、确认密码输入框。
   - 中心部分按钮为注册按钮，若用户名未被使用且密码合法，点击即可跳转至项目主页。
@@ -77,7 +77,7 @@ python manage.py migrate
 
 - ### 上传本地图片页面
 
-  ![local](./local.png)
+  ![local](local.png)
 
   - 中心部分从上至下两个输入框分别为图片标题输入框、图片文件选择框。
   - 中心部分按钮为上传按钮，若上传成功则跳转至用户历史图片展示页面。
@@ -85,12 +85,12 @@ python manage.py migrate
 
 - ### 上传网络图片页面
 
-  ![online](./online.png)
+  ![online](online.png)
 
   - 中心部分从上至下两个输入框分别为图片标题输入框、图片网络地址（URL）输入框。
   - 其余部分同上。
 
-- ### 用户历史图片展示页面![histories](./histories.png)
+- ### 用户历史图片展示页面![histories](histories.png)
 
   - 左上角logo为项目主页导航按钮，点击即可跳转至项目主页，下面文字为项目介绍。
   - logo下方从上至下依次为：
@@ -113,7 +113,7 @@ python manage.py migrate
 
 - ### 管理员浏览页面
 
-  ![admin-history](./admin-history.png)
+  ![admin-history](admin-history.png)
 
   - 左方从上至下依次为：
     - 本页导航链接，点击可刷新（回到）本页。
@@ -125,7 +125,7 @@ python manage.py migrate
 
 - ### 图片详情（处理）页面
 
-  ![detail](./detail.png)
+  ![detail](detail.png)
 
   - 左边从上至下的链接依次为：
 
