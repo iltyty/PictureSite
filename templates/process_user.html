@@ -26,7 +26,7 @@
 <div class="card-columns">
     {% for post in object_list %}
     <div class="card">
-        <p>{{ post.created }}&ensp;{{ post.title }}&ensp;</p>
+        <p>&ensp;{{ post.title }}&ensp;</p>
         <input type="checkbox" value="{{ post.pk }}">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#image{{ post.pk }}">
             delete
